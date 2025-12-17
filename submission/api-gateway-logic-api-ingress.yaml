@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apigateway-to-logic
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /analyse/sentence
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api/polarity
+        pathType: Exact
+        backend:
+          service:
+            name: logic-api-service
+            port:
+              number: 5000
