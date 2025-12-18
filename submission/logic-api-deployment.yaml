@@ -4,6 +4,8 @@ metadata:
   name: logic-api
   labels:
     app: logic-api
+  annotations:
+    consul.hashicorp.com/connect-inject: "true"
 spec:
   replicas: 2
   selector:
@@ -15,17 +17,17 @@ spec:
         app: logic-api
     spec:
       containers:
-        - image: khalil123456/logic-api:submission
-          imagePullPolicy: Always
-          name: logic-api
-          ports:
-            - containerPort: 5000
-          env:
-            - name: NLTK_DATA
-              value: /usr/local/share/nltk_data
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 5000
-            initialDelaySeconds: 3
-            periodSeconds: 3
+      - image: khalil123456/logic-api:submission
+        imagePullPolicy: Always
+        name: logic-api
+        ports:
+        - containerPort: 5000
+        env:
+        - name: NLTK_DATA
+          value: /usr/local/share/nltk_data
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 3

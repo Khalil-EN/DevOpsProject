@@ -4,6 +4,8 @@ metadata:
   name: feedback-api
   labels:
     app: feedback-api
+  annotations:
+    consul.hashicorp.com/connect-inject: "true"
 spec:
   replicas: 2
   selector:
@@ -15,25 +17,25 @@ spec:
         app: feedback-api
     spec:
       containers:
-        - name: feedback-api
-          image: khalil123456/feedback-api:submission
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 80
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 3
-          env:
-            - name: DATABASE_DIR
-              value: /usr/db
-          volumeMounts:
-            - name: sqlite-volume
-              mountPath: /usr/db
-      volumes:
+      - name: feedback-api
+        image: khalil123456/feedback-api:submission
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 3
+        env:
+        - name: DATABASE_DIR
+          value: /usr/db
+        volumeMounts:
         - name: sqlite-volume
-          persistentVolumeClaim:
-            claimName: sqlite-pvc
+          mountPath: /usr/db
+      volumes:
+      - name: sqlite-volume
+        persistentVolumeClaim:
+          claimName: sqlite-pvc
