@@ -26,21 +26,20 @@ XXXXX
 
 ### fonctionnalités avancees - Consul
 
-6- Installation de Consul (Service Mesh, Service Discovery et Observabilité) :
-a- helm repo add hashicorp https://helm.releases.hashicorp.com
-b- helm repo update
+6- Installation de Consul (Service Mesh, Service Discovery et Observabilité) : ./consul-install.sh
 
-    c- kubectl create namespace consul
+Ce script :
 
-    d- helm install consul hashicorp/consul \
-    --namespace consul \
-    --set ui.enabled=true \
-    --set connectInject.enabled=true \
-    --set syncCatalog.enabled=true
+- installe Consul via Helm,
+- active Consul Connect (Service Mesh),
+- active syncCatalog (Service Discovery),
+- configure les Intentions pour restreindre les communications inter-services.
 
 7- Accès à l’interface UI de Consul (observabilité) : kubectl -n consul port-forward svc/consul-ui 8500:80
 8- Puis ouvrir : http://localhost:8500
 
 ### Commentaires généraux:
 
-XXXXX
+- L’environnement repose entièrement sur kind, aucun outil externe n’est requis sur la machine du correcteur.
+- Toutes les fonctionnalités avancées liées à Consul sont reproductibles via un seul script (consul-install.sh).
+- Les communications inter-services sont sécurisées et limitées explicitement à l’aide des Intentions Consul.
