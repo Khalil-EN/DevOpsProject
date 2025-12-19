@@ -16,7 +16,11 @@
 ### Directives nécessaires à la correction
 
 1- Création du cluster Kubernetes avec kind : kind create cluster --config cluster.yaml
-2- Génération de la clé privée et du certificat SSL : - openssl genrsa -out ingress-cert.key 2048 - openssl req -new -x509 -key logic-api.key -out ingress-cert.crt -days 365
+2- Génération de la clé privée et du certificat SSL :
+
+- openssl genrsa -out ingress-cert.key 2048
+- openssl req -new -x509 -key ingress-cert.key -out ingress-cert.crt -days 365
+
 3- Création du secret TLS pour sécuriser les communications HTTPS :
 -kubectl create secret tls ingress-tls --cert=ingress-cert.crt --key=ingress-cert.key -n default
 4- Initialisation de Consul : exécution du script consul-install.sh situé à la racine du projet afin d’installer Consul (Service Mesh, intentions, UI, etc.).

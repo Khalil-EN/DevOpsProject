@@ -45,6 +45,11 @@ kubectl -n ${CONSUL_NS} exec -it statefulset/consul-server -- \
 kubectl -n ${CONSUL_NS} exec -it statefulset/consul-server -- \
   consul intention create -allow api-gateway-service-default feedback-api-service-default
 
+# admin -> feedback (accès direct sans passer par l'API Gateway)
+kubectl -n ${CONSUL_NS} exec -it statefulset/consul-server -- \
+  consul intention create -allow admin-service-default feedback-api-service-default
+
+
 
 echo ""
 echo "✔ Consul installé avec Service Mesh, Service Discovery, Observabilité et Intentions"
