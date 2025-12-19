@@ -21,7 +21,10 @@ helm upgrade --install consul hashicorp/consul \
   --set server.replicas=1 \
   --set ui.enabled=true \
   --set connectInject.enabled=true \
-  --set syncCatalog.enabled=true
+  --set syncCatalog.enabled=true\
+  --set global.tls.enabled=true \
+  --set global.tls.enableAutoEncrypt=true \
+  --reuse-values
 
 echo "[5/6] Attente que Consul soit prêt"
 kubectl -n ${CONSUL_NS} rollout status statefulset/consul-server --timeout=180s
@@ -45,5 +48,5 @@ kubectl -n ${CONSUL_NS} exec -it statefulset/consul-server -- \
 
 echo ""
 echo "✔ Consul installé avec Service Mesh, Service Discovery, Observabilité et Intentions"
-echo "UI Consul : kubectl -n consul port-forward svc/consul-ui 8500:80"
+echo "UI Consul : kubectl -n consul port-forward svc/consul-ui 8500:443"
 echo "Lister les intentions : kubectl -n consul exec -it statefulset/consul-server -- consul intention list"
