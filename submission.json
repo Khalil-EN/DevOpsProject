@@ -1,5 +1,5 @@
 {
-  "complete_name": "John Doe",
-  "NIP": "111 111 111",
-  "fa_codes": ["FA1", "FA2", "FA21", "FA22"]
+  "complete_name": ["Mouhammadou Diouma Diallo", "EN NOUAARY Khalil", "PHAM Pascal Tri-Tam"],
+  "NIP": ["536 777 446","537 399 625", "537 401 226"],
+  "fa_codes": ["FA1", "FA21", "FA22", "FA23", "FA24"]
 }

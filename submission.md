@@ -11,17 +11,14 @@
 - (FA21) Intégration de la fonctionnalité de Service Discovery de Consul-Connect ==> 5%
 - (FA22) Observabilité des services et de leurs états (healthcheck) au travers du UI de Consul ==> 5%
 - (FA23) Définition d'Intentions limitant la communication entre les services au strict nécessaire ==> 10%
-
+- (FA24) Définition d’Intentions limitant la communication entre les services au strict minimum ==> 10%
 
 ### Directives nécessaires à la correction
 
-
 1- Création du cluster Kubernetes avec kind : kind create cluster --config cluster.yaml
-2- Génération de la clé privée et du certificat SSL : 
-    - openssl genrsa -out ingress-cert.key 2048
-    - openssl req -new -x509 -key logic-api.key -out ingress-cert.crt -days 365
-3- Création du secret TLS pour sécuriser les communications HTTPS : 
-    -kubectl create secret tls ingress-tls --cert=ingress-cert.crt --key=ingress-cert.key -n default
+2- Génération de la clé privée et du certificat SSL : - openssl genrsa -out ingress-cert.key 2048 - openssl req -new -x509 -key logic-api.key -out ingress-cert.crt -days 365
+3- Création du secret TLS pour sécuriser les communications HTTPS :
+-kubectl create secret tls ingress-tls --cert=ingress-cert.crt --key=ingress-cert.key -n default
 4- Initialisation de Consul : exécution du script consul-install.sh situé à la racine du projet afin d’installer Consul (Service Mesh, intentions, UI, etc.).
 5- Installation de l’Ingress Controller NGINX (spécifique à kind) : kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 6- Déploiement des services de l’application : kubectl apply -f submission/
